@@ -5,11 +5,13 @@ This project is a demonstration of an e-commerce website designed to simulate th
 
 Users can easily add products to their virtual cart and proceed to the cart page to review their selections. The project includes a mock checkout process, completing the end-to-end user journey typical of e-commerce platforms.
 
+
 # Features
 USER AUTHENTICATION: Secure sign-up and login functionality to create a personal account and access user-specific features.
 HOME PAGE: A welcoming landing page that displays a variety of products.
 SHOPPING CART: A dynamic cart system where users can add products, adjust quantities, or remove items. The cart updates in real time as items are added or changed.
 CHECKOUT PROCESS: A simulated checkout flow where users can review their final order, and complete the purchase.
+
 
 # Technologies Used
 React: For dynamic front-end development
