@@ -8,17 +8,25 @@ Users can easily add products to their virtual cart and proceed to the cart page
 
 # Features
 USER AUTHENTICATION: Secure sign-up and login functionality to create a personal account and access user-specific features.
+
 HOME PAGE: A welcoming landing page that displays a variety of products.
+
 SHOPPING CART: A dynamic cart system where users can add products, adjust quantities, or remove items. The cart updates in real time as items are added or changed.
+
 CHECKOUT PROCESS: A simulated checkout flow where users can review their final order, and complete the purchase.
 
 
 # Technologies Used
 React: For dynamic front-end development
+
 Node.js: For backend server operations
+
 PostgreSQL: For database management
+
 Tailwind CSS: For utility-first styling
+
 bcrypt: For secure password hashing
+
 
 # Setup/Installation
 react:
