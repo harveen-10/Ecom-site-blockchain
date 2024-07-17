@@ -36,7 +36,7 @@ db.connect();
 
 app.get("/home", async(req, res) => {
     try {
-        const products = await db.query("SELECT name, price, img FROM items");
+        const products = await db.query("SELECT name, price, img, ratings FROM items");
         res.send({products});
     } catch (error) {
         console.error("Error fetching products:", error);
@@ -56,6 +56,51 @@ app.get("/cart", async(req, res) => {
             res.send(cart);
         }
 
+    }catch(err){
+        console.error(err);
+    }
+});
+
+app.get("/searchbar", async(req, res) => {
+    const userSearch=req.query.item;
+    try {
+        const data = await db.query("SELECT * FROM items WHERE name ILIKE $1;", [`%${userSearch}%`]);
+        if(data.rows.length==0){
+            console.log("No such product avaliable");
+            res.json({ rows: [] });
+        }else{
+            res.send(data);
+        }
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    } 
+});
+
+app.get("/filters", async(req, res) => {
+    const userfilter=req.query.filter;
+    try {
+        if(userfilter==="remove filters"){
+            const data = await db.query("SELECT * FROM items;");
+            res.send(data);
+        }
+        else{
+            const data = await db.query("SELECT * FROM items WHERE category = $1;", [userfilter]);
+            res.send(data);
+        }
+        
+    } catch (error) {
+        console.error("Error fetching products:", error);
+    } 
+});
+
+app.get("/ratings", async (req, res) => {
+    const email=req.query.email;
+
+    try{
+        const userdata = await db.query("SELECT * FROM users WHERE email = $1;", [email]);
+        const userid=userdata.rows[0].id;
+        const result=await db.query("SELECT * FROM likes WHERE user_id = $1;", [userid]);
+        res.send(result);
     }catch(err){
         console.error(err);
     }
@@ -201,6 +246,31 @@ app.post("/change", async (req, res) => {
                 }
             }
         }
+    }catch(err){
+        console.error(err);
+    }
+});
+
+
+app.post("/ratings", async (req, res) => {
+    const email=req.body.email;
+    const item=req.body.item;
+    const newrating=req.body.ratings;
+
+    try{
+        const userdata = await db.query("SELECT * FROM users WHERE email = $1;", [email]);
+        const userid=userdata.rows[0].id;
+        const result=await db.query("SELECT * FROM likes WHERE user_id = $1 AND item = $2;", [userid, item]);
+        if(result.rows.length==0){
+            await db.query("INSERT INTO likes (item, user_id) VALUES ($1, $2);", [item, userid]);
+            res.send("Item inserted");
+        }
+        else{
+            await db.query("DELETE FROM likes WHERE item = $1 AND user_id = $2;", [item, userid]);
+            res.send("Item deleted");
+        }
+        await db.query("SELECT * FROM items WHERE name = $1;", [item]); 
+        await db.query("UPDATE items SET ratings = $1 WHERE name = $2", [newrating, item]);
     }catch(err){
         console.error(err);
     }

@@ -30,7 +30,6 @@ function Cart() {
                 });
                 
                 const data = await response.json();
-                console.log("data rows: ",data.rows);
                 if(data.rows.length===0){
                     setemptycart("Cart is empty")
                 }
@@ -54,7 +53,6 @@ function Cart() {
                 });
 
                 const data = await response.json();
-                console.log("data in home:", data.products.rows);
 
                 const update = (newdata)=>{
                     setuserdetails(currentDetails=> currentDetails.map(prod=>{
