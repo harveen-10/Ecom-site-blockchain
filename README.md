@@ -15,6 +15,12 @@ SHOPPING CART: A dynamic cart system where users can add products, adjust quanti
 
 CHECKOUT PROCESS: A simulated checkout flow where users can review their final order, and complete the purchase.
 
+SEARCH FUNCTIONALITY: Implemented a search bar where users can enter keywords to find specific products.
+
+FILTER: Allow users to filter products based on categories (e.g., clothing, electronics, home decor).
+
+UPVOTES: Added a “like” button to each product card. Displays the total number of likes for each product. Users can click the button to express their preference for a product.
+
 
 # Technologies Used
 React: For dynamic front-end development
