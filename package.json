@@ -1,0 +1,18 @@
+{
+  "name": "e-com-site---blockchain",
+  "version": "1.0.0",
+  "description": "# Description This project is a demonstration of an e-commerce website designed to simulate the online shopping experience. It features a robust user system, allowing visitors to sign up for an account or log in to access personalized features. Upon authentication, users are directed to the home page where they can browse a curated selection of products.",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.4.0"
+  }
+}
