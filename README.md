@@ -1,19 +1,21 @@
 ## SHOP SPHERE
 
 # Description
-This project is a demonstration of an e-commerce website designed to simulate the online shopping experience. It features a robust user system, allowing visitors to sign up for an account or log in to access personalized features. Upon authentication, users are directed to the home page where they can browse a curated selection of products.
+Shop Sphere is a modern, full-stack e-commerce web application that replicates the online shopping experience with enhanced features such as blockchain-powered payments and a loyalty points system. 
 
-Users can easily add products to their virtual cart and proceed to the cart page to review their selections. The project includes a mock checkout process, completing the end-to-end user journey typical of e-commerce platforms.
+Users can securely sign up, browse a curated catalog of products, manage their shopping cart, and complete a mock checkout. The platform is designed to explore seamless integration of Web3 technologies with everyday e-commerce functionality.
 
 
 # Features
-USER AUTHENTICATION: Secure sign-up and login functionality to create a personal account and access user-specific features.
+USER AUTHENTICATION: Secure user registration and login using hashed passwords with bcrypt, enabling personalized access to cart, likes, and loyalty points.
 
 HOME PAGE: A welcoming landing page that displays a variety of products.
 
 SHOPPING CART: A dynamic cart system where users can add products, adjust quantities, or remove items. The cart updates in real time as items are added or changed.
 
-CHECKOUT PROCESS: A simulated checkout flow where users can review their final order, and complete the purchase.
+BLOCKCHAIN-POWERED PAYMENT: Integration of blockchain technology simulates secure, transparent payments using smart contracts and cryptocurrency wallets. This feature provides a decentralized payment option during checkout, ideal for Web3 applications.
+
+LOYALTY POINTS SYSTEM: Users earn loyalty points based on their purchase activity. These points can be redeemed during future purchases, encouraging repeat shopping and improving user retention.
 
 SEARCH FUNCTIONALITY: Implemented a search bar where users can enter keywords to find specific products.
 
@@ -33,11 +35,19 @@ Tailwind CSS: For utility-first styling
 
 bcrypt: For secure password hashing
 
+Solidity: For writing smart contracts that handle blockchain-based payments
+
+ethers.js: To connect the frontend with the blockchain and interact with deployed smart contracts
+
 
 # Setup/Installation
 react:
 Install Node.js (includes npm).
-Use npx create-react-app your-app-name to set up a new React project.
+Create a new React project:
+```bash
+npx create-react-app your-app-name
+```
+
 
 node.js:
 Download and install Node.js from the official website.
@@ -48,8 +58,30 @@ Download and install PostgreSQL from the official website.
 Set up a new database and user for your project.
 
 Tailwind CSS:
-Install Tailwind via npm: npm install tailwindcss.
+Install Tailwind via npm: 
+```bash
+npm install tailwindcss
+```
 Follow the official guide to include it in your project.
 
 bcrypt:
-Install bcrypt with npm: npm install bcrypt.
+Install bcrypt with npm: <pre> ```npm install bcrypt ``` </pre>
+
+Solidity (Smart Contract):
+Smart contracts are written in Solidity using the Truffle development framework.<br>
+Contracts are tested and deployed locally using Ganache, a personal Ethereum blockchain for development.<br>
+Truffle Setup:
+```bash
+npm install -g truffle
+truffle init
+```
+Ganache: Download and install Ganache from [trufflesuite.com/ganache](https://www.trufflesuite.com/ganache). Start the Ganache GUI or CLI to spin up a local Ethereum blockchain
+
+Contract Deployment:
+```bash
+truffle compile
+truffle migrate
+```
+
+ethers.js:
+Install ethers with npm: <pre> ```npm install ethers ``` </pre>
