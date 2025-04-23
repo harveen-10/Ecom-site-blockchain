@@ -4,6 +4,7 @@ import pg from "pg";
 import bcrypt from "bcrypt";
 import cors from "cors";
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 
@@ -105,6 +106,60 @@ app.get("/ratings", async (req, res) => {
         console.error(err);
     }
 });
+
+// Generate Payment ID
+app.get("/getPaymentId", async (req, res) => {
+    const itemId=req.query.itemId;
+    try {
+        const paymentId = Math.floor(Math.random() * 10000).toString();
+
+        // Store payment ID in PostgreSQL
+        const query = `INSERT INTO payments (payment_id, item_id, paid) VALUES ($1, $2, $3) RETURNING *`;
+        await db.query(query, [paymentId, itemId, false]);
+
+        res.json({ paymentId });
+    } catch (error) {
+        console.error("Error generating payment ID:", error);
+        res.status(500).json({ error: "Error generating payment ID" });
+    }
+});
+
+
+// Check If Payment Is Completed
+app.get("/getItemUrl", async (req, res) => {
+    const paymentId=req.query.paymentId;
+    try {
+        const result = await db.query(`SELECT * FROM payments WHERE payment_id = $1`, [paymentId]);
+
+        if (result.rows.length > 0 && result.rows[0].paid) {
+            res.json({ url: `http://downloadUrlForItem${result.rows[0].item_id}` });
+        } else {
+            res.json({ url: "" });
+        }
+    } catch (error) {
+        console.error("Error fetching payment status:", error);
+        res.status(500).json({ error: "Error fetching payment status" });
+    }
+});
+
+// Get user loyalty points
+// app.get('/getPoints', async (req, res) => {
+//       const email = req.query.email;
+    
+//       try{
+//         const result = await db.query("SELECT * FROM users WHERE email = $1;", [email]);
+//         console.log(result);
+//         if(result.rows.length==0){
+//             console.log("email doesnt exist in database");
+//         }else{
+//             const loyaltyPoints=result.rows[0].loyalty_points;
+//             res.send(loyaltyPoints);
+//         }
+//     }catch(err){
+//         console.error(err);
+//     }
+//   });
+
 
 
 app.post("/signup", async (req, res) => {
@@ -275,6 +330,25 @@ app.post("/ratings", async (req, res) => {
         console.error(err);
     }
 });
+
+
+// Get user loyalty points
+// app.post('/putPoints', async (req, res) => {
+//     const email = req.body.email;
+//     const newpoints = req.body.newpoints;
+  
+//     try{
+//       const result = await db.query("SELECT * FROM users WHERE email = $1;", [email]);
+//       if(result.rows.length==0){
+//           console.log("email doesnt exist in database");
+//       }else{
+//           await db.query("UPDATE users SET loyalty_points = $1 WHERE email = $2", [newpoints, email]);
+//       }
+//   }catch(err){
+//       console.error(err);
+//   }
+// });
+
 
 
 app.listen(port, () => {
